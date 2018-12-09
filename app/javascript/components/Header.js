@@ -15,7 +15,10 @@ class Header extends React.Component {
           <Navbar collapseOnSelect>
             <Navbar.Header>
               <Navbar.Brand>
-                <Link to="/">Investment Monitor</Link>
+                <Link to="/">
+                <span className="glyphicon glyphicon-equalizer"></span>
+                Investment Monitor
+                </Link>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
