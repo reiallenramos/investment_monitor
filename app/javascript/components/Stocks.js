@@ -2,6 +2,11 @@ import React, { Fragment } from 'react'
 import axios from 'axios'
 import { Table, PageHeader }from 'react-bootstrap'
 
+var stocks_url = 'http://192.168.0.14:3000/stocks';
+
+const csrfToken = document.querySelector('[name="csrf-token"]').content;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+
 class Stocks extends React.Component {
   constructor() {
     super();
@@ -12,7 +17,7 @@ class Stocks extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/stocks')
+    axios.get(stocks_url)
       .then( res => {
         const stocks = res.data;
         this.setState({ stocks });
