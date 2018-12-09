@@ -1,6 +1,5 @@
-class Api::V1::StocksController < ApplicationController
+class Api::V1::StocksController < Api::V1::BaseController
   def index
-    stocks = Stock.all.order('symbol ASC')
-    render json: stocks.to_json
+    respond_with Stock.all.order('symbol ASC')
   end
 end
