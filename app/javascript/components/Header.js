@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import About from './About'
 import Monitor from './Monitor'
 import Home from './Home'
+import Stocks from './Stocks'
 
 class Header extends React.Component {
   render() {
@@ -26,6 +27,9 @@ class Header extends React.Component {
                 <LinkContainer to="/about">
                   <NavItem>About</NavItem>
                 </LinkContainer>
+                <LinkContainer to="/stocks">
+                  <NavItem>Stocks</NavItem>
+                </LinkContainer>
               </Nav>
             </Navbar.Collapse>
           </Navbar>
@@ -33,6 +37,7 @@ class Header extends React.Component {
             <Route exact path="/" component={Home} />
             <Route path="/monitor" component={Monitor} />
             <Route path="/about" component={About} />
+            <Route path="/stocks" component={Stocks} />
           </div>
         </Fragment>
       </Router>
