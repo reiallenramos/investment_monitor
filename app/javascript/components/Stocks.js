@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import axios from 'axios'
 import { Table, PageHeader, Button, ButtonGroup, Modal }from 'react-bootstrap'
+import StockForm from './StockForm'
 
 var base_stocks_url = 'http://192.168.0.14:3000/api/v1';
 
@@ -14,10 +15,15 @@ class Stocks extends React.Component {
     this.handleShowViewModal = this.handleShowViewModal.bind(this);
     this.handleCloseViewModal = this.handleCloseViewModal.bind(this);
 
+    this.handleShowForm = this.handleShowForm.bind(this);
+    this.handleCloseForm = this.handleCloseForm.bind(this);
+
     this.state = {
       stocks: [],
       showViewModal: false,
-      current_stock: null
+      current_stock: null,
+      showForm: false,
+      formState: "new"
     }
   }
 
@@ -36,6 +42,21 @@ class Stocks extends React.Component {
   handleShowViewModal(stock) {
     this.setState({ current_stock: stock });
     this.setState({ showViewModal: true });
+  }
+
+  handleCloseForm() {
+    this.setState({ showForm: false });
+  }
+
+  handleShowForm(stock, formState) {
+    var empty_stock = {
+      name: '',
+      symbol: ''
+    }
+
+    this.setState({ current_stock: stock == null ? empty_stock : stock });
+    this.setState({ showForm: true });
+    this.setState({ formState: formState });
   }
 
   handleDeleteStock(id) {
@@ -83,12 +104,45 @@ class Stocks extends React.Component {
       )
     }
 
+    let formTitle;
+    if (this.state.formState == "new") { formTitle = "New Stock" }
+    else { formTitle = "Edit Stock" }
+
+    let form = (
+      <Modal show={this.state.showForm} onHide={this.handleCloseForm}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {formTitle}
+          </Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <StockForm stock={this.state.current_stock} />
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button onClick={this.handleCloseForm}>Discard</Button>
+        </Modal.Footer>
+      </Modal>
+    );
+
     return (
       <Fragment>
         {viewModal}
+        {form}
         <PageHeader>
           Stock List
         </PageHeader>
+
+        <h1>
+          <Button
+            bsStyle="primary"
+            onClick={() => this.handleShowForm(null, 'new')}
+          >
+          <span className="glyphicon glyphicon-plus"></span> Create Stock
+          </Button>
+        </h1>
+
         <Table striped bordered condensed hover>
           <thead>
             <tr>
@@ -110,6 +164,12 @@ class Stocks extends React.Component {
                         onClick={() => this.handleShowViewModal(stock)}
                       >
                       <span className="glyphicon glyphicon-eye-open"></span>
+                      </Button>
+                      <Button
+                        bsStyle="primary"
+                        onClick={() => this.handleShowForm(stock, 'edit')}
+                      >
+                      <span className="glyphicon glyphicon-pencil"></span>
                       </Button>
                       <Button
                         bsStyle="danger"
