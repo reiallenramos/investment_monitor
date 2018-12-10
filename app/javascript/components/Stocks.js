@@ -11,12 +11,12 @@ class Stocks extends React.Component {
   constructor(props, context) {
     super(props, context);
 
-    this.handleShowModal = this.handleShowModal.bind(this);
-    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleShowViewModal = this.handleShowViewModal.bind(this);
+    this.handleCloseViewModal = this.handleCloseViewModal.bind(this);
 
     this.state = {
       stocks: [],
-      showModal: false,
+      showViewModal: false,
       current_stock: null
     }
   }
@@ -29,13 +29,13 @@ class Stocks extends React.Component {
       })
   }
 
-  handleCloseModal() {
-    this.setState({ showModal: false });
+  handleCloseViewModal() {
+    this.setState({ showViewModal: false });
   }
 
-  handleShowModal(stock) {
+  handleShowViewModal(stock) {
     this.setState({ current_stock: stock });
-    this.setState({ showModal: true });
+    this.setState({ showViewModal: true });
   }
 
   handleDeleteStock(id) {
@@ -43,7 +43,7 @@ class Stocks extends React.Component {
       .then(res => {
         console.log('successfully deleted!');
         this.removeStockClient(id);
-        this.handleCloseModal();
+        this.handleCloseViewModal();
       })
   }
 
@@ -57,13 +57,13 @@ class Stocks extends React.Component {
 
   render() {
     const { stocks } = this.state;
-    let modal;
+    let viewModal;
 
     if (this.state.current_stock == null ) {
-      modal = null
+      viewModal = null
     } else {
-      modal = (
-        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
+      viewModal = (
+        <Modal show={this.state.showViewModal} onHide={this.handleCloseViewModal}>
           <Modal.Header closeButton>
             <Modal.Title>{this.state.current_stock.symbol}</Modal.Title>
           </Modal.Header>
@@ -71,7 +71,7 @@ class Stocks extends React.Component {
           <Modal.Body>{this.state.current_stock.name}</Modal.Body>
 
           <Modal.Footer>
-            <Button onClick={this.handleCloseModal}>Close</Button>
+            <Button onClick={this.handleCloseViewModal}>Close</Button>
             <Button
               bsStyle="danger"
               onClick={() => this.handleDeleteStock(this.state.current_stock.id)}
@@ -85,7 +85,7 @@ class Stocks extends React.Component {
 
     return (
       <Fragment>
-        {modal}
+        {viewModal}
         <PageHeader>
           Stock List
         </PageHeader>
@@ -107,7 +107,7 @@ class Stocks extends React.Component {
                     <ButtonGroup>
                       <Button
                         bsStyle="info"
-                        onClick={() => this.handleShowModal(stock)}
+                        onClick={() => this.handleShowViewModal(stock)}
                       >
                       <span className="glyphicon glyphicon-eye-open"></span>
                       </Button>
