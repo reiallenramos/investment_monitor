@@ -10,7 +10,10 @@ class StockForm extends React.Component {
     this.handleShowForm = this.handleShowForm.bind(this);
     this.handleCloseForm = this.handleCloseForm.bind(this);
 
+    this.handleSubmit = this.handleSubmit.bind(this);
+
     this.state = {
+      id: this.props.stock.id,
       name: this.props.stock.name,
       symbol: this.props.stock.symbol,
 
@@ -35,11 +38,17 @@ class StockForm extends React.Component {
     this.setState({ symbol: evt.target.value });
   }
 
+  handleSubmit(e) {
+    alert('submit triggered!');
+    e.preventDefault();
+  }
+
   render() {
     let modalTitle = this.state.isEditing ? "Edit Stock" : "New Stock"
     let buttonStyle = this.state.isEditing ? "default" : "primary";
     let buttonLabel = this.state.isEditing ? "" : " Create Stock";
     let buttonClasses = this.state.isEditing ? "glyphicon glyphicon-pencil" : "glyphicon glyphicon-plus"
+    let submitButtonLabel = this.state.isEditing ? "Update" : "Submit"
 
     return (
       <Fragment>
@@ -51,14 +60,14 @@ class StockForm extends React.Component {
         </Button>
 
         <Modal show={this.state.showForm} onHide={this.handleCloseForm}>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              {modalTitle}
-            </Modal.Title>
-          </Modal.Header>
+          <form onSubmit={this.handleSubmit}>
+            <Modal.Header closeButton>
+              <Modal.Title>
+                {modalTitle}
+              </Modal.Title>
+            </Modal.Header>
 
-          <Modal.Body>
-            <form>
+            <Modal.Body>
               <FormGroup>
                 <ControlLabel>Name</ControlLabel>
                 <FormControl
@@ -77,12 +86,13 @@ class StockForm extends React.Component {
                   onChange={this.handleSymbolChange}
                 />
               </FormGroup>
-            </form>
-          </Modal.Body>
+            </Modal.Body>
 
-          <Modal.Footer>
-            <Button onClick={this.handleCloseForm}>Discard</Button>
-          </Modal.Footer>
+            <Modal.Footer>
+              <Button onClick={this.handleCloseForm}>Discard</Button>
+              <Button type="submit" bsStyle="success">{submitButtonLabel}</Button>
+            </Modal.Footer>
+          </form>
         </Modal>
       </Fragment>
     )

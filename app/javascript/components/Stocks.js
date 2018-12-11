@@ -50,6 +50,7 @@ class Stocks extends React.Component {
 
   handleShowForm(stock, isEditing) {
     var empty_stock = {
+      id: '',
       name: '',
       symbol: ''
     }
