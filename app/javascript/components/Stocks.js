@@ -80,6 +80,11 @@ class Stocks extends React.Component {
     const { stocks } = this.state;
     let viewModal;
 
+    const emptyStock = {
+      name: '',
+      symbol: ''
+    }
+
     if (this.state.current_stock == null ) {
       viewModal = null
     } else {
@@ -104,43 +109,14 @@ class Stocks extends React.Component {
       )
     }
 
-    let formTitle;
-    if (this.state.isEditing == false) { formTitle = "New Stock" }
-    else { formTitle = "Edit Stock" }
-
-    let form = (
-      <Modal show={this.state.showForm} onHide={this.handleCloseForm}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {formTitle}
-          </Modal.Title>
-        </Modal.Header>
-
-        <Modal.Body>
-          <StockForm stock={this.state.current_stock} />
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button onClick={this.handleCloseForm}>Discard</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-
     return (
       <Fragment>
         {viewModal}
-        {form}
         <PageHeader>
           Stock List
         </PageHeader>
-
         <h1>
-          <Button
-            bsStyle="primary"
-            onClick={() => this.handleShowForm(null, false)}
-          >
-          <span className="glyphicon glyphicon-plus"></span> Create Stock
-          </Button>
+          <StockForm stock={emptyStock} isEditing={false} />
         </h1>
 
         <Table striped bordered condensed hover>
@@ -165,12 +141,7 @@ class Stocks extends React.Component {
                       >
                       <span className="glyphicon glyphicon-eye-open"></span>
                       </Button>
-                      <Button
-                        bsStyle="primary"
-                        onClick={() => this.handleShowForm(stock, true)}
-                      >
-                      <span className="glyphicon glyphicon-pencil"></span>
-                      </Button>
+                      <StockForm stock={stock} isEditing={true} />
                       <Button
                         bsStyle="danger"
                         onClick={() => this.handleDeleteStock(stock.id)}
