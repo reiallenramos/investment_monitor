@@ -23,7 +23,7 @@ class Stocks extends React.Component {
       showViewModal: false,
       current_stock: null,
       showForm: false,
-      formState: "new"
+      isEditing: false
     }
   }
 
@@ -48,7 +48,7 @@ class Stocks extends React.Component {
     this.setState({ showForm: false });
   }
 
-  handleShowForm(stock, formState) {
+  handleShowForm(stock, isEditing) {
     var empty_stock = {
       name: '',
       symbol: ''
@@ -56,7 +56,7 @@ class Stocks extends React.Component {
 
     this.setState({ current_stock: stock == null ? empty_stock : stock });
     this.setState({ showForm: true });
-    this.setState({ formState: formState });
+    this.setState({ isEditing: isEditing });
   }
 
   handleDeleteStock(id) {
@@ -105,7 +105,7 @@ class Stocks extends React.Component {
     }
 
     let formTitle;
-    if (this.state.formState == "new") { formTitle = "New Stock" }
+    if (this.state.isEditing == false) { formTitle = "New Stock" }
     else { formTitle = "Edit Stock" }
 
     let form = (
@@ -137,7 +137,7 @@ class Stocks extends React.Component {
         <h1>
           <Button
             bsStyle="primary"
-            onClick={() => this.handleShowForm(null, 'new')}
+            onClick={() => this.handleShowForm(null, false)}
           >
           <span className="glyphicon glyphicon-plus"></span> Create Stock
           </Button>
@@ -167,7 +167,7 @@ class Stocks extends React.Component {
                       </Button>
                       <Button
                         bsStyle="primary"
-                        onClick={() => this.handleShowForm(stock, 'edit')}
+                        onClick={() => this.handleShowForm(stock, true)}
                       >
                       <span className="glyphicon glyphicon-pencil"></span>
                       </Button>
