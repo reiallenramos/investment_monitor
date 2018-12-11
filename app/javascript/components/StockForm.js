@@ -1,5 +1,11 @@
 import React, { Fragment } from 'react'
 import { FormGroup, FormControl, ControlLabel, Modal, Button } from 'react-bootstrap'
+import axios from 'axios'
+
+var base_stocks_url = 'http://192.168.0.14:3000/api/v1';
+
+const csrfToken = document.querySelector('[name="csrf-token"]').content;
+axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
 class StockForm extends React.Component {
   constructor(props, context) {
@@ -39,8 +45,23 @@ class StockForm extends React.Component {
   }
 
   handleSubmit(e) {
-    alert('submit triggered!');
     e.preventDefault();
+
+    const stock = {
+      id: this.state.id,
+      name: this.state.name,
+      symbol: this.state.symbol
+    };
+
+    axios.post(`${base_stocks_url}/stocks.json`, { stock })
+      .then(res => {
+        if (res.data.message) {
+          console.log('cannot create record');
+        } else {
+          console.log('successfully created!');
+          this.handleCloseForm();
+        }
+      })
   }
 
   render() {
