@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 import Header from './Header'
 import axios from 'axios'
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const csrfToken = document.querySelector('[name="csrf-token"]').content;
 axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
@@ -44,6 +46,7 @@ class App extends React.Component {
     return (
       <Fragment>
         <Header />
+        <ToastContainer />
       </Fragment>
     )
   }
