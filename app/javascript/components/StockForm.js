@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { FormGroup, FormControl, ControlLabel, Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 var base_stocks_url = 'http://192.168.0.14:3000/api/v1';
 
@@ -57,8 +58,10 @@ class StockForm extends React.Component {
       .then(res => {
         if (res.data.message) {
           console.log('cannot create record');
+          toast.error('Error in creating Stock!');
         } else {
           console.log('successfully created!');
+          toast.success('Stock Created!');
           this.handleCloseForm();
           this.props.handleCreateStock(res.data);
         }

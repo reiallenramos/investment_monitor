@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import axios from 'axios'
 import { Table, PageHeader, Button, ButtonGroup, Modal }from 'react-bootstrap'
 import StockForm from './StockForm'
+import { toast } from 'react-toastify'
 
 var base_stocks_url = 'http://192.168.0.14:3000/api/v1';
 
@@ -66,6 +67,7 @@ class Stocks extends React.Component {
     axios.delete(`${base_stocks_url}/stocks/${id}.json`)
       .then(res => {
         console.log('successfully deleted!');
+        toast.success('Stock successfully Deleted!');
         this.removeStockClient(id);
         this.handleCloseViewModal();
       })
