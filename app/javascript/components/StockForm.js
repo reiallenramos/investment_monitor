@@ -60,6 +60,7 @@ class StockForm extends React.Component {
         } else {
           console.log('successfully created!');
           this.handleCloseForm();
+          this.props.handleCreateStock(res.data);
         }
       })
   }

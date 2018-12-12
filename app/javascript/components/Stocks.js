@@ -18,6 +18,8 @@ class Stocks extends React.Component {
     this.handleShowForm = this.handleShowForm.bind(this);
     this.handleCloseForm = this.handleCloseForm.bind(this);
 
+    this.handleCreateStock = this.handleCreateStock.bind(this);
+
     this.state = {
       stocks: [],
       showViewModal: false,
@@ -77,6 +79,12 @@ class Stocks extends React.Component {
     this.setState({ stocks: newStocks });
   }
 
+  handleCreateStock(newStock) {
+    this.setState(prevState => ({
+      stocks: [...prevState.stocks, newStock]
+    }))
+  }
+
   render() {
     const { stocks } = this.state;
     let viewModal;
@@ -117,7 +125,7 @@ class Stocks extends React.Component {
           Stock List
         </PageHeader>
         <h1>
-          <StockForm stock={emptyStock} isEditing={false} />
+          <StockForm stock={emptyStock} isEditing={false} handleCreateStock={this.handleCreateStock} />
         </h1>
 
         <Table striped bordered condensed hover>
