@@ -131,9 +131,9 @@ class Stocks extends React.Component {
         <Table striped bordered condensed hover>
           <thead>
             <tr>
-              <th>Symbol</th>
-              <th>Stock Name</th>
-              <th>Actions</th>
+              <th className="text-center">Symbol</th>
+              <th className="text-center">Stock Name</th>
+              <th className="text-center" width="35%">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -148,14 +148,14 @@ class Stocks extends React.Component {
                         bsStyle="info"
                         onClick={() => this.handleShowViewModal(stock)}
                       >
-                      <span className="glyphicon glyphicon-eye-open"></span>
+                      <span className="glyphicon glyphicon-eye-open"></span><span className="hidden-xs"> View</span>
                       </Button>
                       <StockForm stock={stock} isEditing={true} />
                       <Button
                         bsStyle="danger"
                         onClick={() => this.handleDeleteStock(stock.id)}
                       >
-                      <span className="glyphicon glyphicon-trash"></span>
+                      <span className="glyphicon glyphicon-trash"></span><span className="hidden-xs"> Delete</span>
                       </Button>
                     </ButtonGroup>
                   </div>

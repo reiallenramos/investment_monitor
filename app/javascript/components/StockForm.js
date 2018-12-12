@@ -68,7 +68,7 @@ class StockForm extends React.Component {
   render() {
     let modalTitle = this.state.isEditing ? "Edit Stock" : "New Stock"
     let buttonStyle = this.state.isEditing ? "default" : "primary";
-    let buttonLabel = this.state.isEditing ? "" : " Create Stock";
+    let buttonLabel = this.state.isEditing ? "Edit" : " Create Stock";
     let buttonClasses = this.state.isEditing ? "glyphicon glyphicon-pencil" : "glyphicon glyphicon-plus"
     let submitButtonLabel = this.state.isEditing ? "Update" : "Submit"
 
@@ -78,7 +78,7 @@ class StockForm extends React.Component {
             bsStyle={buttonStyle}
             onClick={() => this.handleShowForm(null)}
           >
-          <span className={buttonClasses}></span>{buttonLabel}
+          <span className={buttonClasses}></span><span className="hidden-xs"> {buttonLabel}</span>
         </Button>
 
         <Modal show={this.state.showForm} onHide={this.handleCloseForm}>
