@@ -54,7 +54,21 @@ class StockForm extends React.Component {
       symbol: this.state.symbol
     };
 
-    axios.post(`${base_stocks_url}/stocks.json`, { stock })
+    if (this.state.isEditing) {
+      axios.patch(`${base_stocks_url}/stocks/${stock.id}.json`, { stock })
+      .then(res => {
+        if (res.data.message) {
+          console.log('cannot update record');
+          toast.error('Error in updating Stock!');
+        } else {
+          console.log('successfully updated!');
+          toast.success('Stock Updated!');
+          this.handleCloseForm();
+          this.props.handleUpdateStock(res.data);
+        }
+      })
+    } else {
+      axios.post(`${base_stocks_url}/stocks.json`, { stock })
       .then(res => {
         if (res.data.message) {
           console.log('cannot create record');
@@ -66,6 +80,7 @@ class StockForm extends React.Component {
           this.props.handleCreateStock(res.data);
         }
       })
+    }
   }
 
   render() {

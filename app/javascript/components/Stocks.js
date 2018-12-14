@@ -20,6 +20,7 @@ class Stocks extends React.Component {
     this.handleCloseForm = this.handleCloseForm.bind(this);
 
     this.handleCreateStock = this.handleCreateStock.bind(this);
+    this.handleUpdateStock = this.handleUpdateStock.bind(this);
 
     this.state = {
       stocks: [],
@@ -87,6 +88,15 @@ class Stocks extends React.Component {
     }))
   }
 
+  handleUpdateStock(updatedStock) {
+    let stocksCopy = JSON.parse(JSON.stringify(this.state.stocks))
+    var stockIndex = stocksCopy.findIndex(x => x.id === updatedStock.id)
+
+    stocksCopy[stockIndex] = updatedStock
+
+    this.setState({ stocks: stocksCopy })
+  }
+
   render() {
     const { stocks } = this.state;
     let viewModal;
@@ -152,7 +162,7 @@ class Stocks extends React.Component {
                       >
                       <span className="glyphicon glyphicon-eye-open"></span><span className="hidden-xs"> View</span>
                       </Button>
-                      <StockForm stock={stock} isEditing={true} />
+                      <StockForm stock={stock} isEditing={true} handleUpdateStock={this.handleUpdateStock} />
                       <Button
                         bsStyle="danger"
                         onClick={() => this.handleDeleteStock(stock.id)}
