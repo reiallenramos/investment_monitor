@@ -1,5 +1,5 @@
 class Api::V1::StocksController < Api::V1::BaseController
-  before_action :set_stock, only: %i[destroy]
+  before_action :set_stock, only: %i[update destroy]
   skip_before_action :verify_authenticity_token
 
   def index
@@ -17,6 +17,14 @@ class Api::V1::StocksController < Api::V1::BaseController
       render json: @stock.to_json
     else
       render json: { status: "error", message: @stock.errors }
+    end
+  end
+
+  def update
+    if @stock.update_attributes(stock_params)
+      render json: @stock.to_json
+    else
+      render json: { status: "update error", message: @stock.errors }
     end
   end
 
