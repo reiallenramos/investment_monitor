@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_09_053116) do
+ActiveRecord::Schema.define(version: 2018_12_15_042238) do
+
+  create_table "buy_entries", force: :cascade do |t|
+    t.integer "stock_id"
+    t.integer "user_id"
+    t.datetime "trade_date"
+    t.integer "quantity"
+    t.decimal "stock_price"
+    t.decimal "gross_amount", default: "0.0"
+    t.decimal "comm_and_vat", default: "0.0"
+    t.decimal "other_charges", default: "0.0"
+    t.decimal "final_vat", default: "0.0"
+    t.decimal "net_amount", default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "stocks", force: :cascade do |t|
     t.string "name"
