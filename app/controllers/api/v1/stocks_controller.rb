@@ -32,6 +32,10 @@ class Api::V1::StocksController < Api::V1::BaseController
     respond_with @stock.destroy
   end
 
+  def stock_history_by_user
+    respond_with Stock.stock_history_of(User.find(params[:user_id]))
+  end
+
   private
     def stock_params
       params.require(:stock).permit(

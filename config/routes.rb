@@ -4,7 +4,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :stocks
+      resources :stocks do
+        collection do
+          get :stock_history_by_user
+        end
+      end
       resources :buy_entries
     end
   end
