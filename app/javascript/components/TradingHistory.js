@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react'
 
-class Monitor extends React.Component {
+class TradingHistory extends React.Component {
   render() {
     return (
       <Fragment>
-        Monitor page!
+        Trading History
       </Fragment>
     )
   }
 }
 
-export default Monitor;
+export default TradingHistory;

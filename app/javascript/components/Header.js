@@ -3,7 +3,7 @@ import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import About from './About'
-import Monitor from './Monitor'
+import TradingHistory from './TradingHistory'
 import Home from './Home'
 import Stocks from './Stocks'
 
@@ -24,8 +24,8 @@ class Header extends React.Component {
             </Navbar.Header>
             <Navbar.Collapse>
               <Nav>
-                <LinkContainer to="/monitor">
-                  <NavItem>Monitor</NavItem>
+                <LinkContainer to="/trading_history">
+                  <NavItem>Trading History</NavItem>
                 </LinkContainer>
                 <LinkContainer to="/about">
                   <NavItem>About</NavItem>
@@ -38,7 +38,7 @@ class Header extends React.Component {
           </Navbar>
           <div className="container">
             <Route exact path="/" component={Home} />
-            <Route path="/monitor" component={Monitor} />
+            <Route path="/trading_history" component={TradingHistory} />
             <Route path="/about" component={About} />
             <Route path="/stocks" component={Stocks} />
           </div>
