@@ -8,7 +8,28 @@ import Home from './Home'
 import Stocks from './Stocks'
 
 class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      currentUserId: null,
+      isLoading: true
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps) {
+    return {
+      currentUserId: nextProps.currentUserId,
+      isLoading: nextProps.isLoading
+    }
+  }
+
   render() {
+    const TradingHistoryPage = (props) => {
+      return (
+        <TradingHistory currentUserId={this.state.currentUserId} isLoading={this.state.isLoading} />
+      )
+    }
+
     return(
       <Router>
         <Fragment>
@@ -38,7 +59,7 @@ class Header extends React.Component {
           </Navbar>
           <div className="container">
             <Route exact path="/" component={Home} />
-            <Route path="/trading_history" component={TradingHistory} />
+            <Route path="/trading_history" render={TradingHistoryPage} />
             <Route path="/about" component={About} />
             <Route path="/stocks" component={Stocks} />
           </div>

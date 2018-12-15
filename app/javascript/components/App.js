@@ -11,7 +11,9 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentUser: null
+      currentUser: null,
+      currentUserId: null,
+      isLoading: true
     }
     this.updateCurrentUser = this.updateCurrentUser.bind(this);
   }
@@ -23,11 +25,14 @@ class App extends React.Component {
     .then(response => {
       if(response.data.email){
         that.setState({
-          currentUser: response.data.email
+          currentUser: response.data.email,
+          currentUserId: response.data.id,
+          isLoading: false
         })
       } else {
         that.setState({
-          currentUser: null
+          currentUser: null,
+          currentUserId: null
         })
       }
     })
@@ -45,7 +50,7 @@ class App extends React.Component {
   render() {
     return (
       <Fragment>
-        <Header />
+        <Header currentUserId={this.state.currentUserId} isLoading={this.state.isLoading} />
         <ToastContainer />
       </Fragment>
     )
