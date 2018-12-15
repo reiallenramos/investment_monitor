@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import axios from 'axios'
+import TradingHistoryPanel from './TradingHistoryPanel'
 
 var base_stocks_url = 'http://192.168.0.14:3000/api/v1';
 
@@ -8,7 +9,7 @@ class TradingHistory extends React.Component {
     super(props);
 
     this.state = {
-      stocks: [],
+      stocks: null,
       currentUserId: null,
     }
   }
@@ -20,7 +21,9 @@ class TradingHistory extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.isLoading == false && this.state.currentUserId == null) {
+    if (nextProps.isLoading == false && this.state.currentUserId == null) { // trigger render after App loading has finished
+      return true;
+    } else if (this.state.stocks == null) { // trigger render after fetchTradingHistory
       return true;
     } else {
       return false;
@@ -49,10 +52,22 @@ class TradingHistory extends React.Component {
   }
 
   render() {
+    const { stocks } = this.state;
+    let panels;
+
+    if (this.state.stocks == null) {
+      panels = <div>loading...</div>
+    } else {
+      panels = (
+        stocks.map(stock => {
+          return <TradingHistoryPanel key={stock.id} stock={stock}/>
+        })
+      )
+    }
+
     return (
       <Fragment>
-        Trading History
-
+        {panels}
       </Fragment>
     )
   }
