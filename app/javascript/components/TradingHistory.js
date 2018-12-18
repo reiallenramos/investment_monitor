@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react'
 import axios from 'axios'
 import TradingHistoryPanel from './TradingHistoryPanel'
-
-var base_stocks_url = 'http://192.168.0.14:3000/api/v1';
+import * as constants from './constants'
 
 class TradingHistory extends React.Component {
   constructor(props) {
@@ -36,7 +35,7 @@ class TradingHistory extends React.Component {
 
   fetchTradingHistory() {
     console.log(`TradingHistory: fetching Trading History data for user_id: ${this.state.currentUserId}`);
-    axios.get(`${base_stocks_url}/stocks/stock_history_by_user.json?user_id=${this.state.currentUserId}`)
+    axios.get(`${constants.BASE_STOCKS_URL}/stocks/stock_history_by_user.json?user_id=${this.state.currentUserId}`)
       .then( res => {
         const stocks = res.data;
         this.setState({ stocks });
