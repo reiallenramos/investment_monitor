@@ -21,9 +21,28 @@ def seed_stocks
   end
 end
 
+def seed_buy_entries
+  buy_entry_params = {
+    stock_id: nil,
+    user_id: 1,
+    quantity: 10,
+    stock_price: 100,
+    trade_date: Time.zone.now,
+    gross_amount: 1000,
+    net_amount: 1000
+  }
+
+  Stock.all.each do |stock|
+    params = buy_entry_params.clone
+    params.merge!(stock_id: stock.id)
+    puts "Buy Entry created for #{stock.name}" if BuyEntry.create!(params)
+  end
+end
+
 case Rails.env
 when "development"
   create_rap_user
   seed_stocks
+  seed_buy_entries
 when "production"
 end
