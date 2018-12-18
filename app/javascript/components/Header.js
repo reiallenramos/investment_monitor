@@ -24,10 +24,20 @@ class Header extends React.Component {
   }
 
   render() {
-    const TradingHistoryPage = (props) => {
-      return (
-        <TradingHistory currentUserId={this.state.currentUserId} isLoading={this.state.isLoading} />
-      )
+    var TradingHistoryPage;
+
+    if (this.state.isLoading){
+      TradingHistoryPage = (props) => {
+        return (
+          <div>loading...</div>
+        )
+      }
+    } else {
+      TradingHistoryPage = (props) => {
+        return (
+          <TradingHistory currentUserId={this.state.currentUserId} />
+        )
+      }
     }
 
     return(

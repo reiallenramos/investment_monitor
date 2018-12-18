@@ -19,20 +19,6 @@ class TradingHistory extends React.Component {
     }
   }
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.isLoading == false && this.state.currentUserId == null) { // trigger render after App loading has finished
-      return true;
-    } else if (this.state.stocks == null) { // trigger render after fetchTradingHistory
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  componentDidUpdate() {
-    this.fetchTradingHistory();
-  }
-
   fetchTradingHistory() {
     console.log(`TradingHistory: fetching Trading History data for user_id: ${this.state.currentUserId}`);
     axios.get(`${constants.REQUEST_URL}/stocks/stock_history_by_user.json?user_id=${this.state.currentUserId}`)
@@ -43,11 +29,7 @@ class TradingHistory extends React.Component {
   }
 
   componentDidMount() {
-    if (this.state.currentUserId == null) {
-      console.log('TradingHistory: waiting for App component to finish fetching user data');
-    } else {
-      this.fetchTradingHistory();
-    }
+    this.fetchTradingHistory();
   }
 
   render() {
