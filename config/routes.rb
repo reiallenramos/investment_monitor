@@ -9,7 +9,6 @@ Rails.application.routes.draw do
           get :stock_history_by_user
         end
       end
-      get '/buy_and_sell_entries' => 'entries#buy_and_sell_entries'
       resources :buy_entries
     end
   end
