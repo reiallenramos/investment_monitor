@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Panel, Button } from 'react-bootstrap'
+import TradingHistoryTable from './TradingHistoryTable'
 
 class TradingHistoryPanel extends React.Component {
   constructor(props, context) {
@@ -7,8 +8,10 @@ class TradingHistoryPanel extends React.Component {
 
     this.state = {
       open: true,
+      id: this.props.stock.id,
       name: this.props.stock.name,
-      symbol: this.props.stock.symbol
+      symbol: this.props.stock.symbol,
+      currentUserId: this.props.currentUserId
     };
   }
 
@@ -26,10 +29,7 @@ class TradingHistoryPanel extends React.Component {
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
-              Anim pariatur cliche reprehenderit, enim eiusmod high life
-              accusamus terry richardson ad squid. Nihil anim keffiyeh
-              helvetica, craft beer labore wes anderson cred nesciunt sapiente
-              ea proident.
+             <TradingHistoryTable stockId={this.state.id} currentUserId={this.state.currentUserId} />
             </Panel.Body>
             <Panel.Footer>
               <Button

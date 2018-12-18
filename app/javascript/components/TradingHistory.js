@@ -41,7 +41,7 @@ class TradingHistory extends React.Component {
     } else {
       panels = (
         stocks.map(stock => {
-          return <TradingHistoryPanel key={stock.id} stock={stock}/>
+          return <TradingHistoryPanel key={stock.id} stock={stock} currentUserId={this.state.currentUserId} />
         })
       )
     }
