@@ -54,7 +54,7 @@ class StockForm extends React.Component {
     };
 
     if (this.state.isEditing) {
-      axios.patch(`${constants.BASE_STOCKS_URL}/stocks/${stock.id}.json`, { stock })
+      axios.patch(`${constants.REQUEST_URL}/stocks/${stock.id}.json`, { stock })
       .then(res => {
         if (res.data.message) {
           console.log('cannot update record');
@@ -67,7 +67,7 @@ class StockForm extends React.Component {
         }
       })
     } else {
-      axios.post(`${constants.BASE_STOCKS_URL}/stocks.json`, { stock })
+      axios.post(`${constants.REQUEST_URL}/stocks.json`, { stock })
       .then(res => {
         if (res.data.message) {
           console.log('cannot create record');

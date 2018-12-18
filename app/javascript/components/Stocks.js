@@ -31,7 +31,7 @@ class Stocks extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`${constants.BASE_STOCKS_URL}/stocks.json`)
+    axios.get(`${constants.REQUEST_URL}/stocks.json`)
       .then( res => {
         const stocks = res.data;
         this.setState({ stocks });
@@ -64,7 +64,7 @@ class Stocks extends React.Component {
   }
 
   handleDeleteStock(id) {
-    axios.delete(`${constants.BASE_STOCKS_URL}/stocks/${id}.json`)
+    axios.delete(`${constants.REQUEST_URL}/stocks/${id}.json`)
       .then(res => {
         console.log('successfully deleted!');
         toast.success('Stock successfully Deleted!');

@@ -35,7 +35,7 @@ class TradingHistory extends React.Component {
 
   fetchTradingHistory() {
     console.log(`TradingHistory: fetching Trading History data for user_id: ${this.state.currentUserId}`);
-    axios.get(`${constants.BASE_STOCKS_URL}/stocks/stock_history_by_user.json?user_id=${this.state.currentUserId}`)
+    axios.get(`${constants.REQUEST_URL}/stocks/stock_history_by_user.json?user_id=${this.state.currentUserId}`)
       .then( res => {
         const stocks = res.data;
         this.setState({ stocks });
