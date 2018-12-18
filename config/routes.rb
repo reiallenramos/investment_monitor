@@ -9,7 +9,11 @@ Rails.application.routes.draw do
           get :stock_history_by_user
         end
       end
-      resources :buy_entries
+      resources :buy_entries do
+        collection do
+          get :by_user_and_stock
+        end
+      end
     end
   end
 
