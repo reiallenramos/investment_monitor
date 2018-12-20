@@ -14,7 +14,11 @@ Rails.application.routes.draw do
           get :by_user_and_stock
         end
       end
-      resources :sell_entries
+      resources :sell_entries do
+        collection do
+          get :by_user_and_stock
+        end
+      end
     end
   end
 
