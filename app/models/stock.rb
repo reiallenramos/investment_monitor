@@ -1,5 +1,6 @@
 class Stock < ApplicationRecord
   has_many :buy_entries
+  has_many :sell_entries
 
   validates_presence_of :name, :symbol, allow_blank: false
   validates_uniqueness_of :name, :symbol
