@@ -2,6 +2,7 @@ import React, { Fragment } from 'react'
 import axios from 'axios'
 import * as constants from './constants'
 import ReactTable from "react-table";
+import moment from 'moment'
 
 const GREEN = '3px solid rgba(82,210,154,1)';
 const ORANGE = '3px solid rgba(235,118,85,1)';
@@ -68,7 +69,10 @@ class TradingHistoryTable extends React.Component {
     const columns = [{
       getProps: this.getProps,
       Header: 'Date',
-      accessor: 'trade_date'
+      accessor: 'trade_date',
+      Cell: row => (
+        <div>{moment(row.value).format('MMMM D, YYYY')}</div>
+      )
     },{
       Header: 'Transaction',
       accessor: 'type'
