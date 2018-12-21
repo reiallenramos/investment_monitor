@@ -10,7 +10,31 @@ class Api::V1::BuyEntriesController < Api::V1::BaseController
     respond_with BuyEntry.by_user(@user.id).by_stock(@stock.id)
   end
 
+  def create
+    @buy_entry = BuyEntry.new(buy_entry_params)
+    if @buy_entry.save
+      render json: @buy_entry
+    else
+      render json: { status: "error", message: @buy_entry.errors }
+    end
+  end
+
   private
+    def buy_entry_params
+      params.require(:buy_entry).permit(
+        :stock_id,
+        :user_id,
+        :stock_price,
+        :trade_date,
+        :quantity,
+        :gross_amount,
+        :net_amount,
+        :comm_and_vat,
+        :other_charges,
+        :final_vat
+      )
+    end
+
     def set_user
       @user = User.find(params[:user_id])
     end
