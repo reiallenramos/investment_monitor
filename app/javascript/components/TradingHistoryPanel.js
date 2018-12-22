@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Panel, Button } from 'react-bootstrap'
 import TradingHistoryTable from './TradingHistoryTable'
+import BuyEntryModal from './BuyEntryModal'
 
 class TradingHistoryPanel extends React.Component {
   constructor(props, context) {
@@ -8,6 +9,7 @@ class TradingHistoryPanel extends React.Component {
 
     this.state = {
       open: true,
+      stock: this.props.stock,
       id: this.props.stock.id,
       name: this.props.stock.name,
       symbol: this.props.stock.symbol,
@@ -32,11 +34,7 @@ class TradingHistoryPanel extends React.Component {
              <TradingHistoryTable stockId={this.state.id} currentUserId={this.state.currentUserId} />
             </Panel.Body>
             <Panel.Footer>
-              <Button
-                bsStyle='success'
-                >
-                <span className="glyphicon glyphicon-plus"></span> Add Buy Entry
-              </Button>
+              <BuyEntryModal stock={this.state.stock} />
             </Panel.Footer>
           </Panel.Collapse>
         </Panel>
