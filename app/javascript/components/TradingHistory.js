@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react'
-import axios from 'axios'
+import myAxios from './requests'
 import TradingHistoryPanel from './TradingHistoryPanel'
-import * as constants from './constants'
 
 class TradingHistory extends React.Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class TradingHistory extends React.Component {
 
   fetchTradingHistory() {
     console.log(`TradingHistory: fetching Trading History data for user_id: ${this.state.currentUserId}`);
-    axios.get(`${constants.REQUEST_URL}/stocks/stock_history_by_user.json?user_id=${this.state.currentUserId}`)
+    myAxios.get(`/stocks/stock_history_by_user.json?user_id=${this.state.currentUserId}`)
       .then( res => {
         const stocks = res.data;
         this.setState({ stocks });

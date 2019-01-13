@@ -1,11 +1,7 @@
 import React, { Fragment } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import BuyEntryForm from './BuyEntryForm'
-import axios from 'axios'
-import * as constants from './constants'
-
-const csrfToken = document.querySelector('[name="csrf-token"]').content;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
+import myAxios from './requests'
 
 class BuyEntryModal extends React.Component {
   constructor(props, context) {
@@ -52,7 +48,7 @@ class BuyEntryModal extends React.Component {
     const buyEntry = this.state.form;
     console.log('submitting...', buyEntry);
     console.log('Form submitted:', buyEntry);
-    axios.post(`${constants.REQUEST_URL}/buy_entries.json`, { buyEntry })
+    myAxios.post(`buy_entries.json`, { buyEntry })
       .then(res => {
         if (res.data.message) {
         } else {

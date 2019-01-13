@@ -1,12 +1,8 @@
 import React, { Fragment } from 'react'
-import axios from 'axios'
+import myAxios from './requests'
 import { Table, PageHeader, Button, ButtonGroup, Modal }from 'react-bootstrap'
 import StockForm from './StockForm'
 import { toast } from 'react-toastify'
-import * as constants from './constants'
-
-const csrfToken = document.querySelector('[name="csrf-token"]').content;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
 class Stocks extends React.Component {
   constructor(props, context) {
@@ -31,7 +27,7 @@ class Stocks extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`${constants.REQUEST_URL}/stocks.json`)
+    myAxios.get('/stocks.json')
       .then( res => {
         const stocks = res.data;
         this.setState({ stocks });
@@ -64,7 +60,7 @@ class Stocks extends React.Component {
   }
 
   handleDeleteStock(id) {
-    axios.delete(`${constants.REQUEST_URL}/stocks/${id}.json`)
+    myAxios.delete(`stocks/${id}.json`)
       .then(res => {
         console.log('successfully deleted!');
         toast.success('Stock successfully Deleted!');

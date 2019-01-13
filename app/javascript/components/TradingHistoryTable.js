@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react'
-import axios from 'axios'
-import * as constants from './constants'
+import myAxios from './requests'
 import ReactTable from "react-table";
 import moment from 'moment'
 
@@ -20,7 +19,7 @@ class TradingHistoryTable extends React.Component {
   }
 
   componentDidMount() {
-    axios.get(`${constants.REQUEST_URL}/buy_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
+    myAxios.get(`/buy_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
       .then( res => {
         var buy_entries = res.data;
 
@@ -32,7 +31,7 @@ class TradingHistoryTable extends React.Component {
       }
     )
 
-    axios.get(`${constants.REQUEST_URL}/sell_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
+    myAxios.get(`/sell_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
       .then( res => {
         var sell_entries = res.data;
 

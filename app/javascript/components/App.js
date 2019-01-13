@@ -5,9 +5,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-table/react-table.css'
 
-const csrfToken = document.querySelector('[name="csrf-token"]').content;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
-
 class App extends React.Component {
   constructor() {
     super();

@@ -1,11 +1,7 @@
 import React, { Fragment } from 'react'
 import { FormGroup, FormControl, ControlLabel, Modal, Button } from 'react-bootstrap'
-import axios from 'axios'
+import myAxios from './requests'
 import { toast } from 'react-toastify'
-import * as constants from './constants'
-
-const csrfToken = document.querySelector('[name="csrf-token"]').content;
-axios.defaults.headers.common['X-CSRF-TOKEN'] = csrfToken;
 
 class StockForm extends React.Component {
   constructor(props, context) {
@@ -54,7 +50,7 @@ class StockForm extends React.Component {
     };
 
     if (this.state.isEditing) {
-      axios.patch(`${constants.REQUEST_URL}/stocks/${stock.id}.json`, { stock })
+      myAxios.patch(`/stocks/${stock.id}.json`, { stock })
       .then(res => {
         if (res.data.message) {
           console.log('cannot update record');
@@ -67,7 +63,7 @@ class StockForm extends React.Component {
         }
       })
     } else {
-      axios.post(`${constants.REQUEST_URL}/stocks.json`, { stock })
+      myAxios.post('/stocks.json', { stock })
       .then(res => {
         if (res.data.message) {
           console.log('cannot create record');
