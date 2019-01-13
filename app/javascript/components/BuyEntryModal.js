@@ -24,40 +24,33 @@ class BuyEntryModal extends React.Component {
       stock_id: this.props.stock.id,
       name: this.props.stock.name,
       symbol: this.props.stock.symbol,
-      tradeDate: new Date(),
-      quantity: '',
-      stockPrice: '',
-      grossAmount: '',
-      commAndVat: '',
-      otherCharges: '',
-      finalVat: '',
-      netAmount: ''
+      form: {
+        userId: this.props.currentUserId,
+        stockId: this.props.stock.id,
+        tradeDate: new Date(),
+        quantity: '',
+        stockPrice: '',
+        grossAmount: '',
+        commAndVat: '',
+        otherCharges: '',
+        finalVat: '',
+        netAmount: ''
+      }
     }
   }
 
   onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ form: { ...this.state.form, [e.target.name]: e.target.value } });
   }
 
   handleDateChange(date) {
-    this.setState({ tradeDate: date });
-    console.log('date changed',this.state.tradeDate);
+    this.setState({ form: { ...this.state.form, tradeDate: date } });
+    console.log('date changed',this.state.form.tradeDate);
   }
 
   onSubmit() {
-    const buyEntry = {
-      stock_id: this.state.stock_id,
-      trade_date: this.state.tradeDate,
-      user_id: this.state.currentUserId,
-      quantity: this.state.quantity,
-      stockPrice: this.state.stockPrice,
-      grossAmount: this.state.grossAmount,
-      commAndVat: this.state.commAndVat,
-      otherCharges: this.state.otherCharges,
-      finalVat: this.state.finalVat,
-      netAmount: this.state.netAmount
-    }
-
+    const buyEntry = this.state.form;
+    console.log('submitting...', buyEntry);
     console.log('Form submitted:', buyEntry);
     axios.post(`${constants.REQUEST_URL}/buy_entries.json`, { buyEntry })
       .then(res => {
@@ -76,7 +69,8 @@ class BuyEntryModal extends React.Component {
   }
 
   render() {
-    const { name, symbol, tradeDate, quantity, stockPrice, grossAmount, commAndVat, otherCharges, finalVat, netAmount } = this.state;
+    const { name, symbol } = this.state;
+    const { tradeDate, quantity, stockPrice, grossAmount, commAndVat, otherCharges, finalVat, netAmount } = this.state.form;
 
     return (
       <Fragment>
