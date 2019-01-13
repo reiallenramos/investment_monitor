@@ -9,10 +9,29 @@ class BuyEntryModal extends React.Component {
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
 
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+
     this.state = {
       show: false,
-      stock: this.props.stock
+      name: this.props.stock.name,
+      symbol: this.props.stock.symbol,
+      quantity: '',
+      stockPrice: '',
+      grossAmount: '',
+      commAndVat: '',
+      otherCharges: '',
+      finalVat: '',
+      netAmount: ''
     }
+  }
+
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  onSubmit() {
+    console.log('Form submitted:', this.state);
   }
 
   handleClose() {
@@ -24,7 +43,7 @@ class BuyEntryModal extends React.Component {
   }
 
   render() {
-    const { stock } = this.state;
+    const { name, symbol, quantity, stockPrice, grossAmount, commAndVat, otherCharges, finalVat, netAmount } = this.state;
 
     return (
       <Fragment>
@@ -39,16 +58,24 @@ class BuyEntryModal extends React.Component {
           <Modal.Header>
             <Modal.Title>New Buy Entry
             </Modal.Title>
-              <small>{stock.name} ({stock.symbol})</small>
+              <small>{name} ({symbol})</small>
           </Modal.Header>
 
           <Modal.Body>
-            <div>--form goes here--</div>
+            <BuyEntryForm
+              onChange={this.onChange}
+              quantity={quantity}
+              stockPrice={stockPrice}
+              grossAmount={grossAmount}
+              commAndVat={commAndVat}
+              otherCharges={otherCharges}
+              finalVat={finalVat}
+              netAmount={netAmount}
+              />
           </Modal.Body>
 
           <Modal.Footer>
-            <Button onClick={this.handleCloseForm}>Cancel</Button>
-            <Button type="submit" bsStyle="success">Submit</Button>
+            <Button onClick={this.onSubmit}>Submit</Button>
           </Modal.Footer>
         </Modal>
       </Fragment>
