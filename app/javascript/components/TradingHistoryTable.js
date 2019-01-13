@@ -68,7 +68,7 @@ class TradingHistoryTable extends React.Component {
     const columns = [{
       getProps: this.getProps,
       Header: 'Date',
-      accessor: 'trade_date',
+      accessor: 'tradeDate',
       Cell: row => (
         <div>{moment(row.value).format('MMMM D, YYYY')}</div>
       )
@@ -80,13 +80,13 @@ class TradingHistoryTable extends React.Component {
       accessor: 'quantity',
     },{
       Header: 'Stock Price',
-      accessor: 'stock_price'
+      accessor: 'stockPrice'
     },{
       Header: 'Gross Amount',
-      accessor: 'gross_amount'
+      accessor: 'grossAmount'
     },{
       Header: 'Net Amount',
-      accessor: 'net_amount'
+      accessor: 'netAmount'
     }]
 
     if (this.state.buy_entries == null && this.state.sell_entries == null) {

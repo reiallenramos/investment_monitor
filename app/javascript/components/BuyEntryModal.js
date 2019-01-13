@@ -49,11 +49,6 @@ class BuyEntryModal extends React.Component {
     console.log('submitting...', buyEntry);
     console.log('Form submitted:', buyEntry);
     myAxios.post(`buy_entries.json`, { buyEntry })
-      .then(res => {
-        if (res.data.message) {
-        } else {
-        }
-      })
   }
 
   handleClose() {
