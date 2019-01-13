@@ -34,7 +34,7 @@ class TradingHistoryPanel extends React.Component {
              <TradingHistoryTable stockId={this.state.id} currentUserId={this.state.currentUserId} />
             </Panel.Body>
             <Panel.Footer>
-              <BuyEntryModal stock={this.state.stock} />
+              <BuyEntryModal stock={this.state.stock} currentUserId={this.state.currentUserId} />
             </Panel.Footer>
           </Panel.Collapse>
         </Panel>

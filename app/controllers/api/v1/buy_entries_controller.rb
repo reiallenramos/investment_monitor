@@ -12,6 +12,7 @@ class Api::V1::BuyEntriesController < Api::V1::BaseController
 
   def create
     @buy_entry = BuyEntry.new(buy_entry_params)
+    @buy_entry[:trade_date] = parse_date
     if @buy_entry.save
       render json: @buy_entry
     else
@@ -41,5 +42,9 @@ class Api::V1::BuyEntriesController < Api::V1::BaseController
 
     def set_stock
       @stock = Stock.find(params[:stock_id])
+    end
+
+    def parse_date
+      DateTime.parse(@buy_entry[:trade_date].to_s)
     end
 end

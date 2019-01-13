@@ -1,5 +1,8 @@
 import React, { Fragment } from 'react'
 import { Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap'
+import DatePicker from 'react-datepicker'
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class BuyEntryForm extends React.Component {
   constructor(props, context) {
@@ -7,11 +10,16 @@ class BuyEntryForm extends React.Component {
   }
 
   render() {
-    const { quantity, stockPrice, grossAmount, commAndVat, otherCharges, finalVat, netAmount, onChange } = this.props;
+    const { tradeDate, quantity, stockPrice, grossAmount, commAndVat, otherCharges, finalVat, netAmount, onChange, handleDateChange } = this.props;
 
     return (
       <Fragment>
         <Form horizontal>
+          <DatePicker
+            selected={tradeDate}
+            onChange={handleDateChange}
+            name="tradeDate"
+          />
           <FormGroup controlId="buyEntryFormQuantity">
             <Col componentClass={ControlLabel} sm={3}>
               Quantity
