@@ -8,6 +8,8 @@ class TradingHistoryPanel extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.handleCreateBuyEntry = this.handleCreateBuyEntry.bind(this);
+
     this.state = {
       open: true,
       stock: this.props.stock,
@@ -32,6 +34,12 @@ class TradingHistoryPanel extends React.Component {
     })
   }
 
+  handleCreateBuyEntry(newBuyEntry) {
+    this.setState(prevState => ({
+      buyEntries: [newBuyEntry].concat(prevState.buyEntries)
+    }));
+  }
+
   render() {
     return (
       <div>
@@ -49,7 +57,7 @@ class TradingHistoryPanel extends React.Component {
              <TradingHistoryTable stockId={this.state.stockId} currentUserId={this.state.currentUserId} buyEntries={this.state.buyEntries} />
             </Panel.Body>
             <Panel.Footer>
-              <BuyEntryModal stock={this.state.stock} currentUserId={this.state.currentUserId} />
+              <BuyEntryModal stock={this.state.stock} currentUserId={this.state.currentUserId} handleCreateBuyEntry={this.handleCreateBuyEntry} />
             </Panel.Footer>
           </Panel.Collapse>
         </Panel>

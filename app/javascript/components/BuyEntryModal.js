@@ -56,6 +56,8 @@ class BuyEntryModal extends React.Component {
       } else {
         toast.success('Buy Entry Created!');
         this.handleClose();
+        buyEntry['type'] = 'BUY';
+        this.props.handleCreateBuyEntry(buyEntry);
       }
     })
   }
