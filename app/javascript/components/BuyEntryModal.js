@@ -86,8 +86,11 @@ class BuyEntryModal extends React.Component {
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header>
             <Modal.Title>New Buy Entry
+              <button type="button" class="close" onClick={this.handleClose}>
+                <span aria-hidden="true">&times;</span>
+              </button>
             </Modal.Title>
-              <small>{name} ({symbol})</small>
+            <small>{name} ({symbol})</small>
           </Modal.Header>
 
           <Modal.Body>
