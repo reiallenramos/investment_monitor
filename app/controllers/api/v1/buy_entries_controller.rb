@@ -7,7 +7,7 @@ class Api::V1::BuyEntriesController < Api::V1::BaseController
   end
 
   def by_user_and_stock
-    respond_with BuyEntry.by_user(@user.id).by_stock(@stock.id)
+    respond_with BuyEntry.by_user(@user.id).by_stock(@stock.id).order('trade_date DESC')
   end
 
   def create
