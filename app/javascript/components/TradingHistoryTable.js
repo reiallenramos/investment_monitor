@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import myAxios from './requests'
 import ReactTable from "react-table";
 import moment from 'moment'
 
@@ -11,7 +10,7 @@ class TradingHistoryTable extends React.Component {
     super(props);
 
     this.state = {
-      buy_entries: null,
+      buyEntries: this.props.buyEntries,
       sell_entries: null,
       stockId: this.props.stockId,
       currentUserId: this.props.currentUserId
@@ -19,29 +18,24 @@ class TradingHistoryTable extends React.Component {
   }
 
   componentDidMount() {
-    myAxios.get(`/buy_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
-      .then( res => {
-        var buy_entries = res.data;
+    // myAxios.get(`/sell_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
+    //   .then( res => {
+    //     var sell_entries = res.data;
 
-        buy_entries.forEach((entry) => {
-          entry.type = 'BUY'
-        })
+    //     sell_entries.forEach((entry) => {
+    //       entry.type = 'SELL'
+    //     })
 
-        this.setState({ buy_entries });
-      }
-    )
+    //     this.setState({ sell_entries });
+    //   }
+    // )
+  }
 
-    myAxios.get(`/sell_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
-      .then( res => {
-        var sell_entries = res.data;
-
-        sell_entries.forEach((entry) => {
-          entry.type = 'SELL'
-        })
-
-        this.setState({ sell_entries });
-      }
-    )
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if(nextProps.buyEntries !== prevState.buyEntries){
+      return { buyEntries: nextProps.buyEntries};
+   }
+    return null;
   }
 
   getProps = (state, rowInfo) => {
@@ -59,8 +53,8 @@ class TradingHistoryTable extends React.Component {
 
   render() {
     var buy_and_sell_entries = [];
-    if (this.state.buy_entries != null && this.state.sell_entries != null) {
-      buy_and_sell_entries = (this.state.buy_entries).concat(this.state.sell_entries);
+    if (this.state.buyEntries != null) {
+      buy_and_sell_entries = (this.state.buyEntries);
     }
 
     let table;
@@ -89,7 +83,7 @@ class TradingHistoryTable extends React.Component {
       accessor: 'netAmount'
     }]
 
-    if (this.state.buy_entries == null && this.state.sell_entries == null) {
+    if (this.state.buyEntries == null) {
       table = (
         <div>Loading...</div>
       )

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Panel, Button } from 'react-bootstrap'
 import TradingHistoryTable from './TradingHistoryTable'
 import BuyEntryModal from './BuyEntryModal'
+import myAxios from './requests'
 
 class TradingHistoryPanel extends React.Component {
   constructor(props, context) {
@@ -10,11 +11,25 @@ class TradingHistoryPanel extends React.Component {
     this.state = {
       open: true,
       stock: this.props.stock,
-      id: this.props.stock.id,
+      stockId: this.props.stock.id,
       name: this.props.stock.name,
       symbol: this.props.stock.symbol,
-      currentUserId: this.props.currentUserId
+      currentUserId: this.props.currentUserId,
+      buyEntries: null
     };
+  }
+
+  componentDidMount() {
+    myAxios.get(`/buy_entries/by_user_and_stock.json?user_id=${this.state.currentUserId}&stock_id=${this.state.stockId}`)
+    .then( res => {
+      var buyEntries = res.data;
+
+      buyEntries.forEach((entry) => {
+        entry.type = 'BUY'
+      })
+
+      this.setState({ buyEntries });
+    })
   }
 
   render() {
@@ -31,7 +46,7 @@ class TradingHistoryPanel extends React.Component {
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
-             <TradingHistoryTable stockId={this.state.id} currentUserId={this.state.currentUserId} />
+             <TradingHistoryTable stockId={this.state.stockId} currentUserId={this.state.currentUserId} buyEntries={this.state.buyEntries} />
             </Panel.Body>
             <Panel.Footer>
               <BuyEntryModal stock={this.state.stock} currentUserId={this.state.currentUserId} />
