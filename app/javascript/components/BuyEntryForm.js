@@ -3,6 +3,7 @@ import { Form, FormGroup, FormControl, Col, ControlLabel } from 'react-bootstrap
 import DatePicker from 'react-datepicker'
 
 import "react-datepicker/dist/react-datepicker.css";
+import "../stylesheets/datepicker.css";
 
 class BuyEntryForm extends React.Component {
   constructor(props, context) {
@@ -15,16 +16,22 @@ class BuyEntryForm extends React.Component {
     return (
       <Fragment>
         <Form horizontal>
-          <DatePicker
-            selected={tradeDate}
-            onChange={handleDateChange}
-            name="tradeDate"
-          />
           <FormGroup controlId="buyEntryFormQuantity">
-            <Col componentClass={ControlLabel} sm={3}>
+            <Col componentClass={ControlLabel} xs={2} sm={3}>
+              Trade Date
+            </Col>
+            <Col xs={4} sm={3}>
+              <DatePicker
+                selected={tradeDate}
+                onChange={handleDateChange}
+                name="tradeDate"
+                className="form-control"
+              />
+            </Col>
+            <Col componentClass={ControlLabel} xs={3}>
               Quantity
             </Col>
-            <Col sm={9}>
+            <Col xs={3}>
               <FormControl
                 type="number"
                 placeholder="0"
