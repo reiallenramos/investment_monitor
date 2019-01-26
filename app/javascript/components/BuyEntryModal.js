@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import BuyEntryForm from './BuyEntryForm'
+import { toast } from 'react-toastify'
 import myAxios from './requests'
 
 class BuyEntryModal extends React.Component {
@@ -49,6 +50,14 @@ class BuyEntryModal extends React.Component {
     console.log('submitting...', buyEntry);
     console.log('Form submitted:', buyEntry);
     myAxios.post(`buy_entries.json`, { buyEntry })
+    .then(res => {
+      if (res.data.message) {
+        toast.error('Error in creating Buy Entry!');
+      } else {
+        toast.success('Buy Entry Created!');
+        this.handleClose();
+      }
+    })
   }
 
   handleClose() {
