@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import ReactTable from "react-table";
 import moment from 'moment'
+import { ButtonGroup, Button } from 'react-bootstrap'
 
 const GREEN = '3px solid rgba(82,210,154,1)';
 const ORANGE = '3px solid rgba(235,118,85,1)';
@@ -81,6 +82,20 @@ class TradingHistoryTable extends React.Component {
     },{
       Header: 'Net Amount',
       accessor: 'netAmount'
+    },{
+      Header: 'Actions',
+      Cell: row => (
+        <div className='text-center'>
+          <ButtonGroup>
+            <Button bsStyle="default">
+              <span className="glyphicon glyphicon-pencil"></span>
+            </Button>
+            <Button bsStyle="danger">
+              <span className="glyphicon glyphicon-trash"></span>
+            </Button>
+          </ButtonGroup>
+        </div>
+      )
     }]
 
     if (this.state.buyEntries == null) {
