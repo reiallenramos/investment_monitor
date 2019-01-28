@@ -3,12 +3,14 @@ import { Panel, Button } from 'react-bootstrap'
 import TradingHistoryTable from './TradingHistoryTable'
 import BuyEntryModal from './BuyEntryModal'
 import myAxios from './requests'
+import { toast } from 'react-toastify'
 
 class TradingHistoryPanel extends React.Component {
   constructor(props, context) {
     super(props, context);
 
     this.handleCreateBuyEntry = this.handleCreateBuyEntry.bind(this);
+    this.handleDeleteBuyEntry = this.handleDeleteBuyEntry.bind(this);
 
     this.state = {
       open: true,
@@ -40,6 +42,16 @@ class TradingHistoryPanel extends React.Component {
     }));
   }
 
+  handleDeleteBuyEntry = (buyEntryId) =>{
+    myAxios.delete(`buy_entries/${buyEntryId}.json`)
+      .then(res => {
+        console.log('successfully deleted!');
+        toast.success('Buy Entry successfully Deleted!');
+        // this.removeStockClient(buyEntryId);
+        // this.handleCloseViewModal();
+      })
+  }
+
   render() {
     return (
       <div>
@@ -54,7 +66,7 @@ class TradingHistoryPanel extends React.Component {
           </Panel.Heading>
           <Panel.Collapse>
             <Panel.Body>
-             <TradingHistoryTable stockId={this.state.stockId} currentUserId={this.state.currentUserId} buyEntries={this.state.buyEntries} />
+             <TradingHistoryTable stockId={this.state.stockId} currentUserId={this.state.currentUserId} buyEntries={this.state.buyEntries} handleDeleteBuyEntry={this.handleDeleteBuyEntry} />
             </Panel.Body>
             <Panel.Footer>
               <BuyEntryModal stock={this.state.stock} currentUserId={this.state.currentUserId} handleCreateBuyEntry={this.handleCreateBuyEntry} />

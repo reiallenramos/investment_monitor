@@ -84,13 +84,17 @@ class TradingHistoryTable extends React.Component {
       accessor: 'netAmount'
     },{
       Header: 'Actions',
+      accessor: 'type',
       Cell: row => (
         <div className='text-center'>
           <ButtonGroup>
             <Button bsStyle="default">
               <span className="glyphicon glyphicon-pencil"></span>
             </Button>
-            <Button bsStyle="danger">
+            <Button
+              bsStyle="danger"
+              onClick={ row.value == 'BUY' ? () => this.props.handleDeleteBuyEntry(row.original.id) : console.log('handleDeleteSellEntry here') }
+            >
               <span className="glyphicon glyphicon-trash"></span>
             </Button>
           </ButtonGroup>

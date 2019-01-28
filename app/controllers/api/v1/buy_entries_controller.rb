@@ -1,5 +1,6 @@
 class Api::V1::BuyEntriesController < Api::V1::BaseController
   skip_before_action :verify_authenticity_token
+  before_action :set_buy_entry, only: [:destroy]
   before_action :set_stock, :set_user, only: [:by_user_and_stock]
 
   def index
@@ -18,6 +19,10 @@ class Api::V1::BuyEntriesController < Api::V1::BaseController
     else
       render json: { status: "error", message: @buy_entry.errors }
     end
+  end
+
+  def destroy
+    respond_with @buy_entry.destroy
   end
 
   private
@@ -46,5 +51,9 @@ class Api::V1::BuyEntriesController < Api::V1::BaseController
 
     def parse_date
       DateTime.parse(@buy_entry[:trade_date].to_s)
+    end
+
+    def set_buy_entry
+      @buy_entry = BuyEntry.find(params[:id])
     end
 end
