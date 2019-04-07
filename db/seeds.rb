@@ -64,4 +64,9 @@ when "development"
   seed_buy_entries
   seed_sell_entries
 when "production"
+  create_rap_user
+  seed_stocks
+  seed_buy_entries
+  seed_sell_entries
 end
+
